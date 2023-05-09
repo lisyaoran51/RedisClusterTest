@@ -1,0 +1,106 @@
+version: '2'
+services:
+  redis-node-0:
+    image: docker.io/bitnami/redis-cluster:6.2.5
+    volumes:
+      - redis-cluster_data-0:/bitnami/redis/data
+    ports:
+      - 6379:6379
+      - 16379:16379
+    environment:
+      - 'REDIS_CLUSTER_ANNOUNCE_PORT=6379'
+      - 'REDIS_PASSWORD=pwd123'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=${DOCKER_COMPOSE_MY_IPV4_IP}'
+      - 'REDIS_CLUSTER_BUS_ANNOUNCE_PORT=16379'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+
+  redis-node-1:
+    image: docker.io/bitnami/redis-cluster:6.2.5
+    volumes:
+      - redis-cluster_data-1:/bitnami/redis/data
+    ports:
+      - 6380:6379
+      - 16380:16380
+    environment:
+      - 'REDIS_CLUSTER_ANNOUNCE_PORT=6379'
+      - 'REDIS_PASSWORD=pwd123'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=${DOCKER_COMPOSE_MY_IPV4_IP}'
+      - 'REDIS_CLUSTER_BUS_ANNOUNCE_PORT=16380'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+
+  redis-node-2:
+    image: docker.io/bitnami/redis-cluster:6.2.5
+    volumes:
+      - redis-cluster_data-2:/bitnami/redis/data
+    ports:
+      - 6381:6379
+      - 16381:16381
+    environment:
+      - 'REDIS_CLUSTER_ANNOUNCE_PORT=6379'
+      - 'REDIS_PASSWORD=pwd123'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=${DOCKER_COMPOSE_MY_IPV4_IP}'
+      - 'REDIS_CLUSTER_BUS_ANNOUNCE_PORT=16381'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+
+  redis-node-3:
+    image: docker.io/bitnami/redis-cluster:6.2.5
+    volumes:
+      - redis-cluster_data-3:/bitnami/redis/data
+    ports:
+      - 6382:6379
+      - 16382:16382
+    environment:
+      - 'REDIS_CLUSTER_ANNOUNCE_PORT=6379'
+      - 'REDIS_PASSWORD=pwd123'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=${DOCKER_COMPOSE_MY_IPV4_IP}'
+      - 'REDIS_CLUSTER_BUS_ANNOUNCE_PORT=16382'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+
+  redis-node-4:
+    image: docker.io/bitnami/redis-cluster:6.2.5
+    volumes:
+      - redis-cluster_data-4:/bitnami/redis/data
+    ports:
+      - 6383:6379
+      - 16383:16383
+    environment:
+      - 'REDIS_CLUSTER_ANNOUNCE_PORT=6379'
+      - 'REDIS_PASSWORD=pwd123'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=${DOCKER_COMPOSE_MY_IPV4_IP}'
+      - 'REDIS_CLUSTER_BUS_ANNOUNCE_PORT=16383'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+
+  redis-node-5:
+    image: docker.io/bitnami/redis-cluster:6.2.5
+    volumes:
+      - redis-cluster_data-5:/bitnami/redis/data
+    depends_on:
+      - redis-node-0
+      - redis-node-1
+      - redis-node-2
+      - redis-node-3
+      - redis-node-4
+    ports:
+      - 6384:6379
+      - 16384:16379
+    environment:
+      - 'REDIS_PASSWORD=pwd123'
+      - 'REDISCLI_AUTH=pwd123'
+      - 'REDIS_CLUSTER_REPLICAS=1'
+      - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+      - 'REDIS_CLUSTER_CREATOR=yes'
+      - 'REDIS_CLUSTER_ANNOUNCE_IP=${DOCKER_COMPOSE_MY_IPV4_IP}'
+
+volumes:
+  redis-cluster_data-0:
+    driver: local
+  redis-cluster_data-1:
+    driver: local
+  redis-cluster_data-2:
+    driver: local
+  redis-cluster_data-3:
+    driver: local
+  redis-cluster_data-4:
+    driver: local
+  redis-cluster_data-5:
+    driver: local
